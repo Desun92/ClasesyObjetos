@@ -4,6 +4,8 @@ public class Reloj {
 	
 	private int segundos=0;
 	private boolean formato24=false;
+	private int segundosAlarma=0;
+	private boolean alarmaActivada=false;
 	
 	Reloj (int horas, int minutos, int segundos)
 	{
@@ -78,11 +80,26 @@ public class Reloj {
 	void tictac()
 	{
 		this.segundos++;
+		
+		if (this.alarmaActivada && this.segundosAlarma==this.segundos)
+		{
+			System.out.println("Alarma sonando!!");
+		}
 	}
 	
 	int comparar(Reloj otroReloj)
 	{
 		return Math.abs(otroReloj.segundos-this.segundos);
+	}
+	
+	void setAlarma(int hora, int minutos)
+	{
+		this.segundosAlarma= hora*3600 + minutos*60;
+	}
+	
+	void setAlarma(boolean alarma)
+	{
+		this.alarmaActivada=alarma;
 	}
 
 }

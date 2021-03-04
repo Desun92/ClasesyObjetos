@@ -24,6 +24,9 @@ public class PruebaReloj {
 		System.out.println(" Reloj nº 1 "+ r1.mostrarHora() );
 		System.out.println(" Reloj nº 2 "+ r2.mostrarHora() );
 		
+		r2.setAlarma(23,20);
+		r2.setAlarma(true);
+		
 		// Incremento la hora en una serie de segundos
 		
 		for (int i=1; i<= 50000; i++){
@@ -31,7 +34,7 @@ public class PruebaReloj {
 		}
 		
 		for (int i=1; i<= 100000; i++){
-			r2.tictac();
+			r2.tictac(); // Tiene que saltar la alarma
 		}
 		
 		System.out.println("Los relojes se diferencias en "
