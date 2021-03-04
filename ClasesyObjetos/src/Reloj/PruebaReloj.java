@@ -24,7 +24,7 @@ public class PruebaReloj {
 		System.out.println(" Reloj nº 1 "+ r1.mostrarHora() );
 		System.out.println(" Reloj nº 2 "+ r2.mostrarHora() );
 		
-		r2.setAlarma(23,20);
+		r2.setAlarma(14,20);
 		r2.setAlarma(true);
 		
 		// Incremento la hora en una serie de segundos

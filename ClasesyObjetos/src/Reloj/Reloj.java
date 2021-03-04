@@ -81,6 +81,11 @@ public class Reloj {
 	{
 		this.segundos++;
 		
+		if(this.segundos>=86400)
+		{
+			this.segundos=0;
+		}
+		
 		if (this.alarmaActivada && this.segundosAlarma==this.segundos)
 		{
 			System.out.println("Alarma sonando!!");
