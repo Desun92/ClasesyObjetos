@@ -12,73 +12,108 @@ public class Coche {
 	Coche (String modelo, int maxVelocidad)
 	{
 		this.modelo=modelo;
+		this.distanciaTotal=0;
+		this.distanciaParcial=0;
+		this.motor=false;
+		this.velocidad=0;
 		this.velocidadMaxima=maxVelocidad;
 	}
 	
-	void arrancar()
+	boolean arrancar()
 	{
-		this.motor=true;
-	}
-	
-	void parar()
-	{
-		this.motor=false;
-		this.velocidad=0;
-		this.distanciaParcial=0;
-	}
-	
-	void acelera(int cantidad)
-	{
-		this.velocidad+=cantidad;
-		
-		if(this.velocidad>this.velocidadMaxima)
+		if(this.motor)
 		{
-			this.velocidad=this.velocidadMaxima;
+			infoError("Motor ya arrancado");
+			return false;
 		}
+		else
+		{
+			this.motor=true;
+			return true;
+		}
+		
 	}
 	
-	void frena(int cantidad)
+	boolean parar()
 	{
-		this.velocidad-=cantidad;
-		
-		if(this.velocidad<0)
+		if(this.motor)
 		{
+			this.motor=false;
 			this.velocidad=0;
+			this.distanciaParcial=0;
+			return true;
+		}
+		else
+		{
+			infoError("El motor ya está parado");
+			return false;
+		}
+		
+		
+	}
+	
+	boolean acelera(int cantidad)
+	{
+		if(this.motor)
+		{
+			this.velocidad+=cantidad;
+			
+			if(this.velocidad>this.velocidadMaxima)
+			{
+				this.velocidad=this.velocidadMaxima;
+			}
+			
+			return true;
+		}
+		else
+		{
+			infoError("No se puede acelerar, el motor está apagado");
+			return false;
 		}
 	}
 	
-	void recorre()
+	boolean frena(int cantidad)
 	{
-		this.distanciaTotal+=velocidad;
-		this.distanciaParcial+=velocidad;
+		if(this.motor)
+		{
+			this.velocidad-=cantidad;
+			
+			if(this.velocidad<0)
+			{
+				this.velocidad=0;
+			}
+			return true;
+		}
+		else
+		{
+			infoError("No se puede frenar, el motor está apagado");
+			return false;
+		}
+	}
+	
+	boolean recorre()
+	{
+		if(this.motor)
+		{
+			this.distanciaTotal+=velocidad;
+			this.distanciaParcial+=velocidad;
+			return true;
+		}
+		else
+		{
+			infoError("El motor está apagado, no se puede recorrer distancias");
+			return false;
+		}
 	}
 	
 	String info()
 	{
-		StringBuilder info=new StringBuilder();
-		
-		info.append(this.modelo);
-		info.append(" ");
-		info.append(this.velocidad);
-		info.append("Km/h ");
-		if(this.motor)
-		{
-			info.append("motor encendido ");
-		}
-		else
-		{
-			info.append("motor apagado ");
-		}
-		info.append(this.distanciaParcial);
-		info.append("Km parciales ");
-		info.append(this.distanciaTotal);
-		info.append("Km totales");
-		return info.toString();
+		return this.modelo+" | Velocidad actual: "+this.velocidad+"Km/h | Motor encendido: "+this.motor+" | "+this.distanciaParcial+" Km parciales recorridos | "+this.distanciaTotal+" Kms totales recorridos";
 	}
 	
 	int getKilometros()
 	{
-		return this.distanciaTotal;
+		return this.distanciaParcial;
 	}
 	
 	private void infoError(String mensaje)
